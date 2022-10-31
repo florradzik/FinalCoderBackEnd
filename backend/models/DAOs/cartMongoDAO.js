@@ -1,8 +1,8 @@
-const MongoContainer = require("../containers/baseMongoContainer")
-const CartModel = require("../models/Cart.model")
+import MongoContainer from "../containers/baseMongoContainer"
+import CartModel from "../models/Cart.model"
 
 class CartMongoDAO extends MongoContainer {
-  constructor() {
+  importructor() {
     super(CartModel)
   }
 }

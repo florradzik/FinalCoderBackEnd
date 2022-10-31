@@ -1,5 +1,5 @@
-const MongoContainer = require("../containers/baseMongoContainer")
-const UserModel = require("../models/User.model")
+import MongoContainer from "../containers/baseMongoContainer"
+import UserModel from "../models/User.model"
 
 class UserMongoDAO extends MongoContainer {
   constructor() {

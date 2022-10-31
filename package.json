@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Repositorio donde se encuentra el proyecto final para el curso de programación backend de coderhouse",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
