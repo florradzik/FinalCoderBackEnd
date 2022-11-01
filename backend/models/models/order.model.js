@@ -1,13 +1,26 @@
 import mongoose from "mongoose"
 
 const OrderModel = mongoose.model(
-  "Cart",
+  "order",
   new mongoose.Schema({
-    products: [{ type: String }],
+    products: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+          required: true,
+        },
+        count: {
+          type: Number,
+          required: true,
+          min: 1,
+        },
+      },
+    ],
     createdAt: Date,
-    state: String,
+    total: Number,
     adress: String,
-    user: mongoose.Schema.ObjectID,
+    user: { type: mongoose.Schema.ObjectID, ref: "user" },
   })
 )
 

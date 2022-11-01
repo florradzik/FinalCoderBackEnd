@@ -18,7 +18,7 @@ class MongoContainer {
     init()
   }
 
-  async editById(obj, id) {
+  editById = async (obj, id) => {
     try {
       const objUpdated = await this._collection.updateOne(
         { _id: new ObjectId(id) },
@@ -63,6 +63,17 @@ class MongoContainer {
     } catch (e) {
       console.log("Error to insert", e) //improve with logging
       return newToInsert
+    }
+  }
+
+  getById = async (id) => {
+    try {
+      return await this._collection.findOne({
+        _id: ObjectId(id),
+      })
+    } catch (e) {
+      console.log("Could not find object with that id", e)
+      return False
     }
   }
 }

@@ -1,11 +1,16 @@
 import mongoose from "mongoose"
 
 const MessageModel = mongoose.model(
-  "Message",
+  "message",
   new mongoose.Schema({
     message: [{ type: String }],
     createdAt: Date,
-    user: mongoose.Schema.ObjectId,
+    sender: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+    email: String,
+    type: { type: String, enum: ["usuario", "sistema"] },
   })
 )
 

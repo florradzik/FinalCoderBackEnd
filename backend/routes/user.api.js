@@ -1,9 +1,10 @@
+import FactoryDAO from "../models/index"
 import UserFactoryDAO from "../models/factory/user.factoryDAO"
 import config from "../config/config"
 
 class UserApi {
   constructor() {
-    this.userDAO = new UserFactoryDAO(config.TYPE_DB)
+    this.userDAO = new FactoryDAO(config.TYPE_DB).users
   }
 
   async getUser(id) {

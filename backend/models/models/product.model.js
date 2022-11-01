@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 const ProductModel = mongoose.model(
-  "Products",
+  "products",
   new mongoose.Schema({
     code: String,
     name: String,
@@ -11,6 +11,7 @@ const ProductModel = mongoose.model(
     stock: Number,
     category: String,
     createdAt: Date,
+    category: { type: String, enum: ["hair", "makeup", "body cream"] },
   })
 )
 

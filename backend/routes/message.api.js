@@ -1,9 +1,10 @@
+import FactoryDAO from "../models/index"
 import MessageFactoryDAO from "../models/factory/message.factoryDAO"
 import config from "../config/config"
 
 class MessageApi {
   constructor() {
-    this.messageDAO = new MessageFactoryDAO(config.TYPE_DB)
+    this.messageDAO = new FactoryDAO(config.TYPE_DB).messages
   }
 
   async getMessage(id) {
