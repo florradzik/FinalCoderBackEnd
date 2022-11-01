@@ -22,6 +22,10 @@ class OrderApi {
     return await this.orderDAO.editById(order, id)
   }
 
+  async getByUser(user) {
+    return await this.orderDAO.getByUser(user)
+  }
+
   //   async addProduct(product, id) {
   //     return await this.orderDAO.addProduct(product, id)
   //   }
