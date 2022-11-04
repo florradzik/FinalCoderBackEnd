@@ -12,10 +12,11 @@ class UserRouter {
   start() {
     router.get("/:id?", this.userController.getUsers)
     router.post("/login", passport.authenticate("login"), login)
-    router.post("/siginup", this.userController.addUser)
+    router.post("/signup", this.userController.addUser)
     router.get("/login/success", userAuth, this.userController.loginSuccess)
     router.get("/logout", userAuth, this.userController.logout)
     router.delete("/:id", this.userController.deleteUser)
+    router.put("/:id", this.userController.editUSer)
   }
 }
 
