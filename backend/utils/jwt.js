@@ -68,6 +68,4 @@ const userAuth = async (req, res, next) => {
   })
 }
 
-exports.login = login
-exports.adminAuth = adminAuth
-exports.userAuth = userAuth
+export { login, adminAuth, userAuth }

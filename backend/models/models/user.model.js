@@ -11,4 +11,4 @@ const UserModel = mongoose.model(
   })
 )
 
-module.exports = UserModel
+export default UserModel

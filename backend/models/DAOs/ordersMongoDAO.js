@@ -1,9 +1,9 @@
-import MongoContainer from "../containers/baseMongoContainer"
-import OrderModel from "../models/Order.model"
+import MongoContainer from "../containers/baseMongoContainer.js"
+import OrderModel from "../models/Order.model.js"
 
 class OrderMongoDAO extends MongoContainer {
   constructor() {
-    super(OrderModel)
+    super("orders")
   }
 
   getByUser = async (user) => {
@@ -21,4 +21,4 @@ class OrderMongoDAO extends MongoContainer {
   }
 }
 
-module.exports = OrderMongoDAO
+export default OrderMongoDAO

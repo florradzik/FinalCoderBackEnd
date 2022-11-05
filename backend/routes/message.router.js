@@ -1,10 +1,10 @@
 import express from "express"
-import MessageController from "../controller/message.controller"
+import MessageController from "../controller/message.controller.js"
 const router = express.Router()
 
 class MessageRouter {
   constructor() {
-    this.messageController = MessageController
+    this.messageController = new MessageController()
   }
 
   start() {
@@ -12,6 +12,7 @@ class MessageRouter {
     router.post("/", this.messageController.insertMessage)
     router.put("/:id", this.messageController.editMessage)
     router.delete("/:id", this.messageController.deleteMessage)
+    return router
   }
 }
 

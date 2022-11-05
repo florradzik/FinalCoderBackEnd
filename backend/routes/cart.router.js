@@ -1,10 +1,10 @@
 import express from "express"
-import CartController from "../controller/cart.controller"
+import CartController from "../controller/cart.controller.js"
 const router = express.Router()
 
 class CartRouter {
   constructor() {
-    this.cartController = CartController
+    this.cartController = new CartController()
   }
 
   start() {
@@ -17,6 +17,7 @@ class CartRouter {
       "/:id/products/:id",
       this.cartController.deleteProductFromCart
     )
+    return router
   }
 }
 

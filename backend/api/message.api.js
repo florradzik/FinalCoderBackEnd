@@ -1,10 +1,9 @@
-import FactoryDAO from "../models/index"
-import MessageFactoryDAO from "../models/factory/message.factoryDAO"
-import config from "../config/config"
+import FactoryDAO from "../models/index.js"
+import config from "../config/config.js"
 
 class MessageApi {
   constructor() {
-    this.messageDAO = new FactoryDAO(config.TYPE_DB).messages
+    this.messageDAO = FactoryDAO.get(config.TYPE_DB).messages
   }
 
   async getMessage(id) {

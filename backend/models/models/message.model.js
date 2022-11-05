@@ -14,4 +14,4 @@ const MessageModel = mongoose.model(
   })
 )
 
-module.exports = MessageModel
+export default MessageModel

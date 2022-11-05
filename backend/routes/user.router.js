@@ -1,22 +1,23 @@
 import express from "express"
-import passport from "../utils/passport"
-import { login, userAuth } from "../utils/jwt"
-import UserController from "../controller/user.controller"
+import passport from "../utils/passport.js"
+import { login, userAuth } from "../utils/jwt.js"
+import UserController from "../controller/user.controller.js"
 const router = express.Router()
 
 class UserRouter {
   constructor() {
-    this.userController = UserController
+    this.userController = new UserController()
   }
 
   start() {
-    router.get("/:id?", this.userController.getUsers)
+    router.get("/:id?", this.userController.getUser)
     router.post("/login", passport.authenticate("login"), login)
-    router.post("/signup", this.userController.addUser)
+    router.post("/signup", this.userController.insertUser)
     router.get("/login/success", userAuth, this.userController.loginSuccess)
     router.get("/logout", userAuth, this.userController.logout)
     router.delete("/:id", this.userController.deleteUser)
-    router.put("/:id", this.userController.editUSer)
+    router.put("/:id", this.userController.editUser)
+    return router
   }
 }
 

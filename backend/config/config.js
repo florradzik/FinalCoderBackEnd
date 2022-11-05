@@ -14,4 +14,5 @@ export default {
   TYPE_DB: process.env.TYPE_DB || "mongo",
   MONGO_URL: process.env.MONGO_URL || "mongodb://127.0.0.1",
   MONGO_DB: process.env.MONGO_DB,
+  SESSION_PASS: process.env.SESSION_PASS,
 }

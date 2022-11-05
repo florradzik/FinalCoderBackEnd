@@ -8,4 +8,4 @@ const CartModel = mongoose.model(
   })
 )
 
-module.exports = CartModel
+export default CartModel

@@ -1,9 +1,9 @@
-import MongoContainer from "../containers/baseMongoContainer"
-import ProductModel from "../models/product.model"
+import MongoContainer from "../containers/baseMongoContainer.js"
+import ProductModel from "../models/product.model.js"
 
 class ProductMongoDAO extends MongoContainer {
   constructor() {
-    super(ProductModel)
+    super("products")
   }
 
   getByCategory = async (category) => {
@@ -21,4 +21,4 @@ class ProductMongoDAO extends MongoContainer {
   }
 }
 
-module.exports = ProductMongoDAO
+export default ProductMongoDAO

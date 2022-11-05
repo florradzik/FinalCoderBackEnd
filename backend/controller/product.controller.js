@@ -1,4 +1,4 @@
-import ProductApi from "../api/products.api"
+import ProductApi from "../api/products.api.js"
 
 class ProductController {
   constructor() {

@@ -15,4 +15,4 @@ const ProductModel = mongoose.model(
   })
 )
 
-module.exports = ProductModel
+export default ProductModel

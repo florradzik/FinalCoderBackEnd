@@ -1,4 +1,4 @@
-import MessageApi from "../api/message.api"
+import MessageApi from "../api/message.api.js"
 
 class MessageController {
   constructor() {

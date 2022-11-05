@@ -1,10 +1,10 @@
 import express from "express"
-import OrderController from "../controller/order.controller"
+import OrderController from "../controller/order.controller.js"
 const router = express.Router()
 
 class OrderRouter {
   constructor() {
-    this.orderController = OrderController
+    this.orderController = new OrderController()
   }
 
   start() {
@@ -12,6 +12,7 @@ class OrderRouter {
     router.post("/", this.orderController.insertOrder)
     router.put("/:id", this.orderController.editOrder)
     router.delete("/:id", this.orderController.deleteOrder)
+    return router
   }
 }
 

@@ -1,10 +1,9 @@
-import FactoryDAO from "../models/index"
-import OrderFactoryDAO from "../models/factory/order.factoryDAO"
-import config from "../config/config"
+import FactoryDAO from "../models/index.js"
+import config from "../config/config.js"
 
 class OrderApi {
   constructor() {
-    this.orderDAO = new FactoryDAO(config.TYPE_DB).orders
+    this.orderDAO = FactoryDAO.get(config.TYPE_DB).orders
   }
 
   async getOrder(id) {

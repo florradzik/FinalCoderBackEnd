@@ -1,10 +1,9 @@
-import FactoryDAO from "../models/index"
-import CartFactoryDAO from "../models/factory/cart.factoryDAO"
-import config from "../config/config"
+import FactoryDAO from "../models/index.js"
+import config from "../config/config.js"
 
 class CartApi {
   constructor() {
-    this.cartDAO = new FactoryDAO(config.TYPE_DB).carts
+    this.cartDAO = FactoryDAO.get(config.TYPE_DB).carts
   }
 
   async getCart(id) {

@@ -1,10 +1,10 @@
-import MongoContainer from "../containers/baseMongoContainer"
-import MessageModel from "../models/message.model"
+import MongoContainer from "../containers/baseMongoContainer.js"
+import MessageModel from "../models/message.model.js"
 
 class MessageMongoDAO extends MongoContainer {
-  importructor() {
-    super(MessageModel)
+  constructor() {
+    super("messages")
   }
 }
 
-module.exports = MessageMongoDAO
+export default MessageMongoDAO

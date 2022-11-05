@@ -1,9 +1,9 @@
-import MongoContainer from "../containers/baseMongoContainer"
-import CartModel from "../models/Cart.model"
+import MongoContainer from "../containers/baseMongoContainer.js"
+import CartModel from "../models/Cart.model.js"
 
 class CartMongoDAO extends MongoContainer {
-  importructor() {
-    super(CartModel)
+  constructor() {
+    super("carts")
   }
 
   deleteProductFromCart = async (product, id) => {
@@ -45,4 +45,4 @@ class CartMongoDAO extends MongoContainer {
   }
 }
 
-module.exports = CartMongoDAO
+export default CartMongoDAO

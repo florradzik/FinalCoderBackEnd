@@ -1,8 +1,8 @@
-import CartMongoDAO from "./DAOs/cartMongoDAO"
-import ProductMongoDAO from "./DAOs/productMongoDAO"
-import OrderMongoDAO from "./DAOs/ordersMongoDAO"
-import MessageMongoDAO from "./DAOs/messageMongoDAO"
-import UserMongoDAO from "./DAOs/userMongoDAO"
+import CartMongoDAO from "./DAOs/cartMongoDAO.js"
+import ProductMongoDAO from "./DAOs/productMongoDAO.js"
+import OrderMongoDAO from "./DAOs/ordersMongoDAO.js"
+import MessageMongoDAO from "./DAOs/messageMongoDAO.js"
+import UserMongoDAO from "./DAOs/userMongoDAO.js"
 
 class FactoryDAO {
   static get(type) {

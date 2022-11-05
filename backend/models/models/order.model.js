@@ -20,8 +20,8 @@ const OrderModel = mongoose.model(
     createdAt: Date,
     total: Number,
     adress: String,
-    user: { type: mongoose.Schema.ObjectID, ref: "user" },
+    user: { type: mongoose.Schema.Types.ObjectID, ref: "user" },
   })
 )
 
-module.exports = OrderModel
+export default OrderModel

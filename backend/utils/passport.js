@@ -1,6 +1,6 @@
 import passport from "passport"
 import LocalStrategy from "passport-local"
-import UserApi from "../api/user.api"
+import UserApi from "../api/user.api.js"
 
 passport.use(
   "login",
@@ -30,4 +30,4 @@ passport.deserializeUser((id, done) => {
   done(err, user)
 })
 
-module.exports = passport
+export default passport

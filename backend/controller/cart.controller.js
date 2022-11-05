@@ -1,4 +1,4 @@
-import CartApi from "../api/carts.api"
+import CartApi from "../api/cart.api.js"
 
 class CartController {
   constructor() {

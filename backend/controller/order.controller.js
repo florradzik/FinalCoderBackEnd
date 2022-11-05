@@ -1,4 +1,4 @@
-import OrderApi from "../api/order.api"
+import OrderApi from "../api/order.api.js"
 
 class OrderController {
   constructor() {

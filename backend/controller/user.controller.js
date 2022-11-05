@@ -1,4 +1,4 @@
-import UserApi from "../api/user.api"
+import UserApi from "../api/user.api.js"
 import bcrypt from "bcrypt"
 
 class UserController {

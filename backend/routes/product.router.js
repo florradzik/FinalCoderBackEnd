@@ -1,11 +1,11 @@
 import express from "express"
-import ProductController from "../controller/product.controller"
-const { adminAuth } = require("../utils/jwt")
+import ProductController from "../controller/product.controller.js"
+import { adminAuth } from "../utils/jwt.js"
 const router = express.Router()
 
 class ProductRouter {
   constructor() {
-    this.productController = ProductController
+    this.productController = new ProductController()
   }
 
   start() {
@@ -14,6 +14,7 @@ class ProductRouter {
     router.post("/", adminAuth, this.productController.insertProduct)
     router.put("/", adminAuth, this.productController.editProduct)
     router.delete("/", adminAuth, this.productController.deleteProduct)
+    return router
   }
 }
 

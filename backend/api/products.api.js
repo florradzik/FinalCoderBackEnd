@@ -1,10 +1,9 @@
-import FactoryDAO from "../models/index"
-import ProductFactoryDAO from "../models/factory/product.factoryDAO"
-import config from "../config/config"
+import FactoryDAO from "../models/index.js"
+import config from "../config/config.js"
 
 class ProductApi {
   constructor() {
-    this.productDAO = new FactoryDAO(config.TYPE_DB).products
+    this.productDAO = FactoryDAO.get(config.TYPE_DB).products
   }
 
   async getProduct(id) {
