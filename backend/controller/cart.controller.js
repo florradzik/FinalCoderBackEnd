@@ -7,9 +7,22 @@ class CartController {
 
   getCarts = async (req, res) => {
     try {
-      const id = req.params.id
-      const carts = await this.cartApi.getCart(id)
-      res.json(carts)
+      // buscamos el carrito del usuario
+      const uid = req.uid
+      const cart = await this.cartApi.getCartByUID(uid)
+      if (!cart) {
+        // si no existe un carrito para este usuario, hay que crear uno
+        const products = []
+        const newCart = {
+          uid: uid,
+          products: products,
+          date: new Date().toLocaleString(),
+        }
+        const saved = await this.cartApi.insertCart(newCart)
+        res.render("cart", { cart: saved })
+        return
+      }
+      res.render("cart", { cart: cart })
     } catch (e) {
       console.log("Error to get carts", e)
       res.send(e)
@@ -53,7 +66,17 @@ class CartController {
     try {
       const product = req.body
       const id = req.params.id
-      const cart = await this.cartApi.addProduct(product, id)
+      const uid = req.uid
+      let cart = await this.cartApi.getCartByUID(uid)
+      if (!cart) {
+        // si no existe un carrito para este usuario, hay que crear uno
+        newCart = {
+          uid: uid,
+          products: product,
+          date: new Date().toLocaleString(),
+        }
+        cart = await this.cartApi.insertCart(newCart)
+      } else cart = await this.cartApi.addProduct(product, cart._id)
       req.json(cart)
     } catch (e) {
       console.log("Error adding product to cart", e)

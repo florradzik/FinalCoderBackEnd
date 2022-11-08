@@ -43,6 +43,17 @@ class CartMongoDAO extends MongoContainer {
       return False
     }
   }
+
+  getByUid = async (uid) => {
+    try {
+      return (cart = await this._collection.findOne({
+        uid: uid,
+      }))
+    } catch (e) {
+      console.log("Error to find", e)
+      return False
+    }
+  }
 }
 
 export default CartMongoDAO

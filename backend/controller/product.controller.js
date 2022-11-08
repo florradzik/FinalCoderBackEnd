@@ -1,4 +1,5 @@
 import ProductApi from "../api/products.api.js"
+import CartController from "./cart.controller.js"
 
 class ProductController {
   constructor() {
@@ -58,6 +59,10 @@ class ProductController {
       console.log("Error to edit product", e)
       res.send(e)
     }
+  }
+
+  getAddProduct = async (req, res) => {
+    return res.render("addProduct")
   }
 }
 

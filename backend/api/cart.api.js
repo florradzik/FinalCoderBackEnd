@@ -29,6 +29,10 @@ class CartApi {
   async deleteProduct(product, id) {
     return await this.cartDAO.deleteProduct(product, id)
   }
+
+  async getCartByUID(uid) {
+    return await this.cartDAO.getByUID(uid)
+  }
 }
 
 export default CartApi
