@@ -3,7 +3,7 @@ import LocalStrategy from "passport-local"
 import UserApi from "../api/user.api.js"
 
 passport.use(
-  "login",
+  "local-login",
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await UserApi.getUserByUsername(username)

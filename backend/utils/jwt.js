@@ -1,32 +1,6 @@
 import passport from "passport"
 import jwt from "jsonwebtoken"
-
-const login = async (req, res, next) => {
-  passport.authenticate("login", async (err, user, info) => {
-    try {
-      if (err || !user) {
-        res.status(400).json({
-          message: "Something is not right",
-        })
-        return next(err)
-      }
-      req.login(user, { session: false }, async (err) => {
-        if (err) {
-          res.send(err)
-        }
-        const body = {
-          _id: user._id,
-          username: user.username,
-          role: user.role,
-        }
-        const token = jwt.sign({ user: body }, "secret")
-        return res.json({ user, token })
-      })
-    } catch (error) {
-      console.log("error login", e)
-    }
-  })(req, res, next)
-}
+import config from "../config/config.js"
 
 const adminAuth = async (req, res, next) => {
   const headers = req.headers["authorization"]
@@ -68,4 +42,25 @@ const userAuth = async (req, res, next) => {
   })
 }
 
-export { login, adminAuth, userAuth }
+const generateToken = (uid) => {
+  return new Promise((resolve, reject) => {
+    const payload = { uid }
+    jwt.sign(
+      payload,
+      config.TOKEN_KEY,
+      {
+        expiresIn: config.TOKEN_DURATION,
+      },
+      (err, token) => {
+        if (err) {
+          console.log(err)
+          reject("No se pudo generar el JWT.")
+        } else {
+          resolve(token)
+        }
+      }
+    )
+  })
+}
+
+export { adminAuth, userAuth, generateToken }

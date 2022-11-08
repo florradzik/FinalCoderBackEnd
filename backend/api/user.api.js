@@ -21,6 +21,10 @@ class UserApi {
   async editUser(user, id) {
     return await this.userDAO.editById(user, id)
   }
+
+  async getUserByUsername(username) {
+    return await this.userDAO.getByUsername(username)
+  }
 }
 
 export default UserApi

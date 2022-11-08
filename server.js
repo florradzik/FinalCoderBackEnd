@@ -1,15 +1,21 @@
 import express from "express"
+import favicon from "serve-favicon"
 import session from "express-session"
 import MongoStore from "connect-mongo"
 import config from "./backend/config/config.js"
 import cors from "cors"
 import passport from "passport"
 import cookieParser from "cookie-parser"
+import path from "path"
+import { fileURLToPath } from "url"
 import CartRouter from "./backend/routes/cart.router.js"
 import ProductRouter from "./backend/routes/product.router.js"
 import UserRouter from "./backend/routes/user.router.js"
 import MessageRouter from "./backend/routes/message.router.js"
 import OrderRouter from "./backend/routes/order.router.js"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const routerCart = new CartRouter()
 const routerProduct = new ProductRouter()
@@ -39,12 +45,13 @@ io.on("connection", (socket) => {
 const app = express()
 
 if (config.NODE_ENV == "develop") app.use(cors())
-app.use(express.static("public"))
+app.set("view engine", "ejs")
+app.set("views", __dirname + "/views")
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")))
 
 //sessions
-
 app.use(
   session({
     store: new MongoStore({

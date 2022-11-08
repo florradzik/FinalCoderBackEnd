@@ -9,7 +9,7 @@ class ProductController {
     try {
       const id = req.params.id
       const products = await this.productApi.getProduct(id)
-      res.json(products)
+      res.render("products", { products: products })
     } catch (e) {
       console.log("Error to get products", e)
       res.send(e)

@@ -1,0 +1,11 @@
+<%- include( 'templates/head' ) %>
+<form class="w-50 m-auto mt-5 bg-light p-5" id="login-form" action="/login" method="POST">
+    <h4 class="text-primary" >Login de usuario</h4>
+    <div class="mb-3">
+      <label for="username" class="form-label" id="login-name">Nombre:</label>
+      <input type="text" class="form-control" id="username" name="username" required/>
+      <label for="password" class="form-label" id="login-name">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" required/>
+    </div>
+    <button type="submit" class="btn btn-primary" id="login-submit">Ingresar</button>
+  </form>

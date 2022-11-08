@@ -1,5 +1,6 @@
 import UserApi from "../api/user.api.js"
 import bcrypt from "bcrypt"
+import { generateToken } from "../utils/jwt.js"
 
 class UserController {
   constructor() {
@@ -9,6 +10,7 @@ class UserController {
   getUser = async (req, res) => {
     try {
       const id = req.params.id
+      console.log(req.params)
       const users = await this.userApi.getUser(id)
       res.json(users)
     } catch (e) {
@@ -19,11 +21,13 @@ class UserController {
 
   insertUser = async (req, res) => {
     try {
-      const { username, email, name, address, phone, photo, password } =
-        req.body
+      let { name, username, avatar, password } = req.body
       password = bcrypt.hashSync(password, 10)
-      newUser = { username, email, name, address, phone, photo, password }
-      user = await this.userApi.insertUser(newUser)
+      username === config.ADMIN_EMAIL ? (role = "ADMIN") : (role = "USER")
+      let newUser = { name, username, avatar, password, role }
+      const user = await this.userApi
+        .insertUser(newUser)
+        .then(res.render("products"))
       res.status(200).json({
         success: true,
         message: "success",
@@ -75,20 +79,34 @@ class UserController {
     }
   }
 
-  loginSuccess = async (req, res) => {
-    if (req.user) {
-      res.status(200).json({
-        auth: true,
-        message: "Successful login",
-        user: req.user,
-      })
-    } else {
-      res.status(401).json({
-        auth: false,
-        message: "Not authorized",
-        user: req.user,
-      })
+  login = async (req, res) => {
+    const { username, password } = req.body
+    try {
+      const user = await this.userApi.getUserByUsername(username)
+      if (!user) {
+        console.log("Could not find user, you should register")
+        return res.status(404) // res.render error login
+      }
+      if (!bcrypt.compare(password, user.password)) {
+        console.log("Incorrect password!")
+        return res.status(404) // res.render error login
+      }
+
+      //generate Token
+      const token = await generateToken(user.id)
+      res.redirect("/product")
+      return res.status(201) // hay que hacer el redirect!
+    } catch (e) {
+      console.log("There was an error", e)
     }
+  }
+
+  getLogin = async (req, res) => {
+    return res.render("login")
+  }
+
+  getRegister = async (req, res) => {
+    return res.render("register")
   }
 }
 

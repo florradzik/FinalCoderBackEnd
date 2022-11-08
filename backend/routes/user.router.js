@@ -1,6 +1,5 @@
 import express from "express"
-import passport from "../utils/passport.js"
-import { login, userAuth } from "../utils/jwt.js"
+import { userAuth } from "../utils/jwt.js"
 import UserController from "../controller/user.controller.js"
 const router = express.Router()
 
@@ -10,13 +9,14 @@ class UserRouter {
   }
 
   start() {
-    router.get("/:id?", this.userController.getUser)
-    router.post("/login", passport.authenticate("login"), login)
-    router.post("/signup", this.userController.insertUser)
-    router.get("/login/success", userAuth, this.userController.loginSuccess)
+    router.get("/login", this.userController.getLogin)
+    router.get("/register", this.userController.getRegister)
+    router.post("/login", this.userController.login)
+    router.post("/register", this.userController.insertUser)
+    router.get("/user/:id", this.userController.getUser)
     router.get("/logout", userAuth, this.userController.logout)
-    router.delete("/:id", this.userController.deleteUser)
-    router.put("/:id", this.userController.editUser)
+    router.delete("/user/:id", this.userController.deleteUser)
+    router.put("/user/:id", this.userController.editUser)
     return router
   }
 }

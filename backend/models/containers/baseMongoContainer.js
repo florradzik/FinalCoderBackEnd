@@ -6,7 +6,6 @@ class MongoContainer {
   constructor(collection) {
     const init = async () => {
       console.log("Connecting mongo DB ...")
-
       const connection = await MongoClient.connect(`${config.MONGO_URL}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -46,6 +45,7 @@ class MongoContainer {
         const objects = await this._collection.find({}).toArray()
         return objects
       }
+      console.log(_id)
       console.log("Search ", _id)
       const newOne = await this._collection.findOne({
         _id: ObjectId(_id),

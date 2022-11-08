@@ -1,0 +1,16 @@
+<%- include( 'templates/head' ) %>
+
+<form class="w-50 m-auto mt-5 bg-light p-5" id="register-form" action="/register" method="POST">
+    <h4 class="text-primary" >Registrarse</h4>
+    <div class="mb-3">
+        <label for="name" class="form-label" id="register-name">Nombre:</label>
+      <input type="text" class="form-control" id="name" name="name" required/>
+      <label for="username" class="form-label" id="register-username">Email:</label>
+      <input type="email" class="form-control" id="username" name="username" required/>
+      <label for="avatar" class="form-label" id="register-avatar">Avatar:</label>
+      <input type="text" class="form-control" id="avatar" name="avatar" required/>
+      <label for="password" class="form-label" id="register-name">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" required/>
+    </div>
+    <button type="submit" class="btn btn-primary" id="register-submit">Guardar datos</button>
+  </form>
