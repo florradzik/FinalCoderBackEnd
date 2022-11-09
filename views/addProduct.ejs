@@ -1,6 +1,6 @@
 <%- include( 'templates/head' ) %>
 
-<form class="w-50 m-auto mt-5 bg-light p-5" id="register-form" action="/" method="POST">
+<form class="w-50 m-auto mt-5 bg-light p-5" id="register-form" action="/product/" method="POST">
     <h4 class="text-primary" >Agregar Producto</h4>
     <div class="mb-3">
         <label for="name" class="form-label" id="product-name">Producto:</label>
@@ -11,7 +11,7 @@
       <input type="text" class="form-control" id="avatar" name="avatar" required/>
       <label for="category" class="form-label" id="product-category">Categoria:</label>
       <input type="text" class="form-control" id="product-category" name="category" required/>
-      <label for="price" class="form-label" id="product-price">Password:</label>
+      <label for="price" class="form-label" id="product-price">Precio:</label>
       <input type="number" class="form-control" id="product-price" name="price" required/>
     </div>
     <button type="submit" class="btn btn-primary" id="register-submit">Guardar producto</button>

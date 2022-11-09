@@ -22,7 +22,7 @@ class CartController {
         res.render("cart", { cart: saved })
         return
       }
-      res.render("cart", { cart: cart })
+      res.json(cart)
     } catch (e) {
       console.log("Error to get carts", e)
       res.send(e)

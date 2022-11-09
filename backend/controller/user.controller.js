@@ -1,6 +1,7 @@
 import UserApi from "../api/user.api.js"
 import bcrypt from "bcrypt"
 import { generateToken } from "../utils/jwt.js"
+import config from "../config/config.js"
 
 class UserController {
   constructor() {
@@ -10,7 +11,6 @@ class UserController {
   getUser = async (req, res) => {
     try {
       const id = req.params.id
-      console.log(req.params)
       const users = await this.userApi.getUser(id)
       res.json(users)
     } catch (e) {
@@ -23,11 +23,10 @@ class UserController {
     try {
       let { name, username, avatar, password } = req.body
       password = bcrypt.hashSync(password, 10)
+      let role = ""
       username === config.ADMIN_EMAIL ? (role = "ADMIN") : (role = "USER")
       let newUser = { name, username, avatar, password, role }
-      const user = await this.userApi
-        .insertUser(newUser)
-        .then(res.render("products"))
+      const user = await this.userApi.insertUser(newUser)
       res.status(200).json({
         success: true,
         message: "success",
@@ -94,8 +93,7 @@ class UserController {
 
       //generate Token
       const token = await generateToken(user.id)
-      res.redirect("/product")
-      return res.status(201) // hay que hacer el redirect!
+      return res.json({ ok: true, user: user, token: token })
     } catch (e) {
       console.log("There was an error", e)
     }
@@ -107,6 +105,12 @@ class UserController {
 
   getRegister = async (req, res) => {
     return res.render("register")
+  }
+
+  auth = async (req, res, next) => {
+    const authHeader = req.headers.token
+
+    if (!authHeader) return res.status(401).json("no auth")
   }
 }
 

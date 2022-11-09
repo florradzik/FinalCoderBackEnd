@@ -1,5 +1,4 @@
 import ProductApi from "../api/products.api.js"
-import CartController from "./cart.controller.js"
 
 class ProductController {
   constructor() {
@@ -10,7 +9,7 @@ class ProductController {
     try {
       const id = req.params.id
       const products = await this.productApi.getProduct(id)
-      res.render("products", { products: products })
+      res.json(products)
     } catch (e) {
       console.log("Error to get products", e)
       res.send(e)
