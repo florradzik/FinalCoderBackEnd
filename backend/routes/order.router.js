@@ -1,5 +1,6 @@
 import express from "express"
 import OrderController from "../controller/order.controller.js"
+import { userAuth } from "../utils/jwt.js"
 const router = express.Router()
 
 class OrderRouter {
@@ -8,10 +9,10 @@ class OrderRouter {
   }
 
   start() {
-    router.get("/:id?", this.orderController.getOrders)
-    router.post("/", this.orderController.insertOrder)
-    router.put("/:id", this.orderController.editOrder)
-    router.delete("/:id", this.orderController.deleteOrder)
+    router.get("/:id?", userAuth, this.orderController.getOrdersByUser)
+    router.post("/", userAuth, this.orderController.insertOrder)
+    router.put("/:id", userAuth, this.orderController.editOrder)
+    router.delete("/:id", userAuth, this.orderController.deleteOrder)
     return router
   }
 }

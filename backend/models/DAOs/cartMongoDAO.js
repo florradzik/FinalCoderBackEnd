@@ -9,46 +9,49 @@ class CartMongoDAO extends MongoContainer {
   deleteProductFromCart = async (product, id) => {
     try {
       let cart = await this._collection.findOne({
-        _id: ObjectId(id),
+        _id: id,
       })
-      const itemFound = cart.products.findIndex(
-        (item) => item.id.toString() === product.id.toString()
-      )
-      if (itemFound !== -1) {
-        cart.products.splice(itemFound, 1)
-        this.editById(cart, id)
-      }
+      const items = cart.products.filter((item) => {
+        item.product._id.toString() != product.toDelete._id.toString()
+      })
+      cart.products = items
+      await this.editById(cart, id)
       return cart
     } catch (e) {
       console.log("Error to delete", e)
-      return False
+      return false
     }
   }
 
   addProductToCart = async (product, id) => {
     try {
       let cart = await this._collection.findOne({
-        _id: ObjectId(id),
+        _id: id,
       })
-      const itemFound = await cart.products.findIndex(
-        (item) => item._id.toString() === product._id.toString()
-      )
-      if (itemFound !== -1) {
-        cart.products.append(item)
-        await this.editById(cart, id)
+      if (cart.products.length > 0) {
+        const item = cart.products.filter((item) => {
+          console.log(product)
+          item.product._id.toString() == product.product._id.toString()
+        })
+        if (!item) {
+          cart.products = [...cart.products, product]
+        }
+      } else {
+        cart.products = [product]
       }
+      await this.editById(cart, id)
       return cart
     } catch (e) {
       console.log("Error to add", e)
-      return False
+      return false
     }
   }
 
-  getByUid = async (uid) => {
+  getByUser = async (user) => {
     try {
-      return (cart = await this._collection.findOne({
-        uid: uid,
-      }))
+      return await this._collection.findOne({
+        user: user,
+      })
     } catch (e) {
       console.log("Error to find", e)
       return False

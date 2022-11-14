@@ -13,7 +13,7 @@ class OrderMongoDAO extends MongoContainer {
           $eq: user,
         },
       })
-      return order
+      return order.toArray()
     } catch (e) {
       console.log("Could not find orders for that user", e)
       return False

@@ -30,7 +30,7 @@ class ProductController {
   insertProduct = async (req, res) => {
     try {
       const product = req.body
-      const saved = await this.productApi.inserProduct(product)
+      const saved = await this.productApi.insertProduct(product)
       res.json(saved)
     } catch (e) {
       console.log("Error to save product", e)

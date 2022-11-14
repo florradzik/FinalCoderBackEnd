@@ -8,21 +8,20 @@ class CartController {
   getCarts = async (req, res) => {
     try {
       // buscamos el carrito del usuario
-      const uid = req.uid
-      const cart = await this.cartApi.getCartByUID(uid)
+      const user = req.user
+      const cart = await this.cartApi.getCartByUser(user)
       if (!cart) {
         // si no existe un carrito para este usuario, hay que crear uno
         const products = []
         const newCart = {
-          uid: uid,
+          user: user,
           products: products,
           date: new Date().toLocaleString(),
         }
         const saved = await this.cartApi.insertCart(newCart)
-        res.render("cart", { cart: saved })
-        return
+        return res.json({ cart: saved })
       }
-      res.json(cart)
+      return res.json({ cart })
     } catch (e) {
       console.log("Error to get carts", e)
       res.send(e)
@@ -42,8 +41,9 @@ class CartController {
 
   deleteCart = async (req, res) => {
     try {
-      const id = req.params.id
-      const deleted = await this.cartApi.deleteById(id)
+      const user = req.user
+      const cart = await this.cartApi.getCartByUser(user)
+      const deleted = await this.cartApi.deleteCart(cart._id)
       res.json(deleted)
     } catch (e) {
       console.log("Error to delete cart", e)
@@ -65,19 +65,18 @@ class CartController {
   addProductToCart = async (req, res) => {
     try {
       const product = req.body
-      const id = req.params.id
-      const uid = req.uid
-      let cart = await this.cartApi.getCartByUID(uid)
+      const user = req.user
+      let cart = await this.cartApi.getCartByUser(user)
       if (!cart) {
         // si no existe un carrito para este usuario, hay que crear uno
-        newCart = {
-          uid: uid,
-          products: product,
+        let newCart = {
+          user: user,
+          products: [product],
           date: new Date().toLocaleString(),
         }
         cart = await this.cartApi.insertCart(newCart)
       } else cart = await this.cartApi.addProduct(product, cart._id)
-      req.json(cart)
+      res.json(cart)
     } catch (e) {
       console.log("Error adding product to cart", e)
       res.send(e)
@@ -87,9 +86,10 @@ class CartController {
   deleteProductFromCart = async (req, res) => {
     try {
       const product = req.body
-      const id = req.params.id
-      const cart = await this.cartApi.deleteProduct(product, id)
-      req.json(cart)
+      const user = req.user
+      let cart = await this.cartApi.getCartByUser(user)
+      cart = await this.cartApi.deleteProduct(product, cart._id)
+      res.json(cart)
     } catch (e) {
       console.log("Error deleting product from cart", e)
       res.send(e)

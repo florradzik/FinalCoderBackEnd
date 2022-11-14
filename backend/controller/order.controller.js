@@ -18,7 +18,7 @@ class OrderController {
 
   getOrdersByUser = async (req, res) => {
     try {
-      const user = req.params.user
+      const user = req.user
       const orders = await this.orderApi.getByUser(user)
       res.json(orders)
     } catch (e) {
@@ -29,8 +29,19 @@ class OrderController {
 
   insertOrder = async (req, res) => {
     try {
-      const order = req.body
-      const saved = await this.orderApi.inserOrder(order)
+      const products = req.body.products
+      const user = req.user
+      let total = 0
+      total = products.map((item) => (total += item.product.price))
+      const order = {
+        user,
+        products,
+        createdAt: new Date().toLocaleString(),
+        total,
+        state: "En progreso",
+      }
+      console.log(order)
+      const saved = await this.orderApi.insertOrder(order)
       res.json(saved)
     } catch (e) {
       console.log("Error to save order", e)

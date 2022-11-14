@@ -23,15 +23,15 @@ class CartApi {
   }
 
   async addProduct(product, id) {
-    return await this.cartDAO.addProduct(product, id)
+    return await this.cartDAO.addProductToCart(product, id)
   }
 
   async deleteProduct(product, id) {
-    return await this.cartDAO.deleteProduct(product, id)
+    return await this.cartDAO.deleteProductFromCart(product, id)
   }
 
-  async getCartByUID(uid) {
-    return await this.cartDAO.getByUID(uid)
+  async getCartByUser(user) {
+    return await this.cartDAO.getByUser(user)
   }
 }
 

@@ -80,19 +80,22 @@ class UserController {
 
   login = async (req, res) => {
     const { username, password } = req.body
+    console.log(req.body)
     try {
       const user = await this.userApi.getUserByUsername(username)
       if (!user) {
         console.log("Could not find user, you should register")
         return res.status(404) // res.render error login
       }
+      console.log(user)
       if (!bcrypt.compare(password, user.password)) {
         console.log("Incorrect password!")
         return res.status(404) // res.render error login
       }
 
       //generate Token
-      const token = await generateToken(user.id)
+      const token = await generateToken(user._id)
+      console.log(token)
       return res.json({ ok: true, user: user, token: token })
     } catch (e) {
       console.log("There was an error", e)
@@ -107,10 +110,26 @@ class UserController {
     return res.render("register")
   }
 
-  auth = async (req, res, next) => {
-    const authHeader = req.headers.token
-
-    if (!authHeader) return res.status(401).json("no auth")
+  authAdmin = async (req, res, next) => {
+    const token = req.headers.token
+    if (!token) {
+      return res.status(401).json({
+        message: "No token provided",
+      })
+    }
+    jwt.verify(token, config.TOKEN_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({
+          message: "Invalid token",
+        })
+      }
+      user = this.getUser(decoded.uid)
+      if (user.role == "ADMIN") next()
+      else
+        return res.status(401).json({
+          message: "You don't have admin privilages",
+        })
+    })
   }
 }
 

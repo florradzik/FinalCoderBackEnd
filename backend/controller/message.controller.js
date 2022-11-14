@@ -19,7 +19,7 @@ class MessageController {
   insertMessage = async (req, res) => {
     try {
       const message = req.body
-      const saved = await this.messageApi.inserMessage(message)
+      const saved = await this.messageApi.insertMessage(message)
       res.json(saved)
     } catch (e) {
       console.log("Error to save message", e)
