@@ -1,4 +1,5 @@
 import OrderApi from "../api/order.api.js"
+import { sendPurchase } from "../utils/sendEmail.js"
 
 class OrderController {
   constructor() {
@@ -40,8 +41,8 @@ class OrderController {
         total,
         state: "En progreso",
       }
-      console.log(order)
       const saved = await this.orderApi.insertOrder(order)
+      sendPurchase()
       res.json(saved)
     } catch (e) {
       console.log("Error to save order", e)

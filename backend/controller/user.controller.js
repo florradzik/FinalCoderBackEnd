@@ -2,6 +2,7 @@ import UserApi from "../api/user.api.js"
 import bcrypt from "bcrypt"
 import { generateToken } from "../utils/jwt.js"
 import config from "../config/config.js"
+import { sendRegister } from "../utils/sendEmail.js"
 
 class UserController {
   constructor() {
@@ -32,7 +33,7 @@ class UserController {
         message: "success",
         user: req.user,
       })
-      //send email
+      sendRegister()
     } catch (e) {
       console.log("Error to insert new User", e)
     }
@@ -100,14 +101,6 @@ class UserController {
     } catch (e) {
       console.log("There was an error", e)
     }
-  }
-
-  getLogin = async (req, res) => {
-    return res.render("login")
-  }
-
-  getRegister = async (req, res) => {
-    return res.render("register")
   }
 
   authAdmin = async (req, res, next) => {

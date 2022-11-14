@@ -19,4 +19,6 @@ export default {
   TOKEN_KEY: process.env.TOKEN_KEY,
   TOKEN_DURATION: process.env.TOKEN_DURATION,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+  NODEMAILER_USER: process.env.NODEMAILER_USER,
+  NODEMAILER_PASS: process.env.NODEMAILER_PASS,
 }
